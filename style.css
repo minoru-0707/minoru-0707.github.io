@@ -102,3 +102,11 @@
             margin-right: 5px;
             color: #495057;
         }
+
+        /* 記事の中の画像を設定 */
+        .post-img {
+            width: 100%; 
+            height: auto;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
