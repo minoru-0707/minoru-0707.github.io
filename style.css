@@ -63,6 +63,7 @@
         /* 左側のメインエリア（記事が流れる方） */
         main {
             flex: 2;                /* 右側より広く（比率2） */
+            min-width: 0
         }
 
         /* 右側のサイドバー（リンク集など） */
@@ -79,6 +80,7 @@
         4. 記事（日記）や小物のデザイン
         ----------------------------------------- */
         article {
+            flex: 2;
             background-color: #ffffff;
             padding: 30px;
             border-radius: 8px;
@@ -105,10 +107,11 @@
 
         /* 記事の中の画像を設定 */
         .post-img {
-            width: 100%; 
-            height: auto;
-            border-radius: 6px;
-            margin: 15px 0;
+            max-width: 100%;
+            height: auto; 
+            border-radius: 8px;
+            display: block;
+            margin-bottom: 20px;
         }
 
         @media (max-width: 768px) {

@@ -1,52 +1,15 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ℱreεβΘΘκ</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+---
+layout: default
+title: "ホーム"
+---
 
-    <header>
-        <h1>ℱreεβΘΘκ</h1>
-        <p>信頼性の向上・知識の共有・備忘録</p>
-    </header>
-
-    <div class="container">
-
-        <main>
-            <h2>最近の投稿</h2>
-            <ul>
-                <li>
-                    <a href="article1.html">2026年7月7日（火） ホームページ再始動！</a>
-                </li>
-                <li>
-                    <a href="article2.html">2026年7月8日（水） 今後の開発計画と itch.io</a>
-                </li>
-            </ul>
-        </main>
-
-        <aside>
-            <h3>My Games (itch.io)</h3>
-            <ul>
-                <li><a href="https://itch.io/" target="_blank">公開中のゲーム1（リンク）</a></li>
-                <li><a href="https://itch.io/" target="_blank">開発中のゲーム2（リンク）</a></li>
-            </ul>
-
-            <h3>カテゴリー / タグ（予定）</h3>
-            <ul>
-                <li>日記</li>
-                <li>ゲーム開発</li>
-                <li>備忘録</li>
-            </ul>
-        </aside>
-
-    </div>
-
-    <footer>
-        <p>&copy; 2026 minoru-0707</p>
-    </footer>
-
-</body>
-</html>
+<main>
+    <h2>最近の投稿</h2>
+    <ul>
+        {% for post in site.posts %}
+        <li>
+            <a href="{{ post.url }}">{{ post.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</main>
