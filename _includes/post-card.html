@@ -1,0 +1,41 @@
+{% if include.post.last_modified_at %}
+    {% assign modified_timestamp = include.post.last_modified_at | date: "%s" %}
+{% else %}
+    {% assign modified_timestamp = include.post.date | date: "%s" %}
+{% endif %}
+
+<li class="card-item search-item" 
+    data-category="{{ include.post.category }}" 
+    data-title="{{ include.post.title | downcase }}"
+    data-post-timestamp="{{ include.post.date | date: '%s' }}"
+    data-modified-timestamp="{{ modified_timestamp }}">
+    
+    <a href="{{ include.post.url }}">
+        <div class="card-thumb">
+            {% if include.post.image %}
+                <img src="{{ include.post.image }}" alt="{{ include.post.title }}">
+            {% else %}
+                <span class="no-img-text">{{ include.post.category | default: "他" }}</span>
+            {% endif %}
+        </div>
+
+        <div class="card-body">
+            <div>
+                <span class="category-btn" style="font-size: 9px; padding: 1px 4px; pointer-events: none;">
+                    {{ include.post.category | default: "その他" }}
+                </span>
+            </div>
+            
+            <h3 style="margin: 0; font-size: 14px; line-height: 1.4; font-weight: bold; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal; height: 2.8em;">
+                {{ include.post.title }}
+            </h3>
+            
+            <div style="font-size: 10px; color: #777; display: flex; flex-direction: column; gap: 2px; margin-top: 5px; padding-top: 5px; border-top: 1px dashed #f1f3f5;">
+                <span>📝 {{ include.post.date | date: "%Y/%m/%d" }}</span>
+                {% if include.post.last_modified_at %}
+                    <span style="color: #28a745; font-weight: bold;">🔄 {{ include.post.last_modified_at | date: "%Y/%m/%d" }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </a>
+</li>

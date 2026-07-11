@@ -1,0 +1,65 @@
+---
+layout: default
+---
+
+{% if site.allowed_categories contains page.category %}
+    {% assign display_category = page.category %}
+{% else %}
+    {% assign display_category = "その他" %}
+{% endif %}
+
+<div class="related-box">
+    <h2>📍 関連記事（おすすめ）</h2>
+    <ul class="card-list-horizontal">
+        {% assign count = 0 %}
+        
+        {% for post in site.posts %}
+            {% if post.category == page.category and post.url != page.url and count < 2 %}
+                {% include post-card-horizontal.html post=post %}
+                {% assign count = count | plus: 1 %}
+            {% endif %}
+        {% endfor %}
+
+        {% for post in site.posts %}
+            {% if post.url != page.url and count < 2 %}
+                {% if post.category != page.category %}
+                    {% include post-card-horizontal.html post=post %}
+                    {% assign count = count | plus: 1 %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+        {% if count == 0 %}
+            <li class="no-related">関連する記事はまだありません。</li>
+        {% endif %}
+    </ul>
+</div>
+
+<article class="content-box">
+    <h2>{{ page.title }}</h2>
+    <p class="meta">
+        投稿日: {{ page.date | date: "%Y/%m/%d" }} | 
+        
+        カテゴリ: 
+        {% if site.allowed_categories contains page.category %}
+            <a href="/search.html?cat={{ page.category }}" class="category-btn">{{ display_category }}</a>
+        {% else %}
+            <a href="/search.html?cat={{ page.category }}" class="category-btn category-warning-btn">{{ display_category }}</a>
+        {% endif %}
+        {% if page.last_modified_at %}
+            <br>更新日: {{ page.last_modified_at | date: "%Y/%m/%d" }}
+        {% endif %}
+    </p>
+    
+    {% if page.image %}
+        <img src="{{ page.image }}" alt="Thumbnail" class="post-img">
+    {% endif %}
+
+    {% unless site.allowed_categories contains page.category %}
+        <p style="font-size: 12px; color: #856404; background-color: #fff3cd; padding: 10px; border-radius: 4px; margin-bottom: 20px;">
+            ℹ️ <strong>（未分類の投稿）</strong> この記事のカテゴリ「{{ page.category }}」は登録されていません。
+        </p>
+    {% endunless %}
+
+    {{ content }}
+</article>

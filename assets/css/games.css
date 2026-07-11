@@ -1,0 +1,247 @@
+/* -----------------------------------------
+7.0. ゲーム専用ページ（games_layout）装飾スタイル
+----------------------------------------- */
+.games-main-container {
+    display: block !important;
+}
+
+.games-filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.search-box-wrapper {
+    position: relative;
+    width: 100%;
+}
+.search-box-wrapper .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a4b0be;
+}
+#gameSearch {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s;
+}
+#gameSearch:focus {
+    border-color: #4b7bec;
+}
+
+.filter-tabs {
+    display: flex;
+    gap: 10px;
+}
+.filter-btn {
+    padding: 8px 16px;
+    border: 1px solid #ced4da;
+    background: #ffffff;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: bold;
+    color: #495057;
+    outline: none;
+}
+.filter-btn.active, .filter-btn:hover {
+    background: #4b7bec;
+    color: #ffffff;
+    border-color: #4b7bec;
+}
+
+/* -----------------------------------------
+7.1. 強力なゲームカード（詳細版）＆ グリッドレイアウト
+----------------------------------------- */
+.games-card-list {
+    list-style: none !important;
+    padding-left: 0 !important;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+.game-detailed-card {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+.game-detailed-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+}
+
+.game-card-clickable-area {
+    display: flex !important;
+    flex-direction: row;
+    text-decoration: none !important;
+    color: inherit;
+    height: 100%;
+    min-height: 160px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.game-detailed-thumb {
+    flex: 0 0 42%;
+    min-width: 0;
+    position: relative;
+    overflow: hidden;
+    background-color: #e9ecef;
+}
+.game-detailed-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block;
+}
+.game-detailed-card:hover .game-detailed-thumb img {
+    transform: scale(1.05);
+}
+
+.status-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+.status-badge.status-online { background-color: #2ecc71; }
+.status-badge.status-dev { background-color: #e67e22; }
+
+.game-detailed-info {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.game-detailed-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.game-detailed-title {
+    font-size: 16px;
+    margin: 0 0 8px 0;
+    color: #212529;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+.game-detailed-description {
+    font-size: 14px;
+    color: #6c757d;
+    margin: 8px 0 12px 0;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.game-detailed-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.game-tag-pool {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+.game-spec-tag {
+    font-size: 10px;
+    color: #4b7bec;
+    background-color: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.game-play-btn {
+    font-size: 11px;
+    font-weight: bold;
+    color: #4b7bec;
+    border: 1px solid #4b7bec;
+    padding: 5px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    background-color: #ffffff;
+}
+.game-detailed-card:hover .game-play-btn {
+    background-color: #4b7bec;
+    color: #ffffff;
+}
+
+@media (max-width: 900px) {
+    .games-card-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.home .games-card-list,
+.content-box .games-card-list {
+    grid-template-columns: 1fr;
+}
+
+@media (max-width: 600px) {
+    .games-card-list {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .game-card-clickable-area {
+        flex-direction: column;
+    }
+    .game-detailed-thumb {
+        flex: 0 0 auto;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+    }
+    .game-detailed-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

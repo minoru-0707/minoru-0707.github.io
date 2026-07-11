@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - ℱreεβΘΘκ</title>
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/components.css">
+    <link rel="stylesheet" href="/assets/css/games.css">
+
+    <meta property="og:title" content="{{ page.title }}">
+    <meta property="og:site_name" content="ℱreεβΘΘκ">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ '/assets/images/default-share.png' | absolute_url }}">
+    <meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="games-layout-body">
+    <script src="https://kit.fontawesome.com/afc3da21b7.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <header class="games-page-header">
+        <div class="header-inner" style="position: relative; width: 100%; max-width: 1080px; text-align: center;">
+            <a href="/" class="go-to-games">
+                ブログに戻る
+            </a>
+            <h1 class="games-logo" style="margin:0;">ℱreεβΘΘκ <span style="color:#4b7bec; font-weight:900;">GAMES</span></h1>
+            <p class="games-subtitle" style="margin: 5px 0 0 0; color:#6c757d; font-size:14px;">制作したゲーム・開発中プロジェクトの総合ポートフォリオ</p>
+        </div>
+    </header>
+    
+    <div class="container games-main-container">
+        <main style="flex: 1; width: 100%;">
+            {{ content }}
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-sns-links">
+            <a href="https://youtube.com/@木のなる実" target="_blank" class="sns-icon youtube" title="YouTube">
+                <i class="fa-brands fa-youtube"></i>
+            </a>
+            <a href="https://twitter.com/minoru_0707" target="_blank" class="sns-icon twitter" title="X (Twitter)">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <a href="https://minoru-0707.itch.io" target="_blank" class="sns-icon itchio" title="itch.io">
+                <i class="fa-brands fa-itch-io"></i>
+            </a>
+            <a href="https://github.com/minoru-0707" target="_blank" class="sns-icon github" title="GitHub">
+                <i class="fa-brands fa-github"></i>
+            </a>
+        </div>
+        <p class="copyright">&copy; 2026 minoru-0707</p>
+    </footer>
+
+</body>
+</html>

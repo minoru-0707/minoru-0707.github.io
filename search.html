@@ -1,0 +1,161 @@
+---
+layout: default
+title: "Search"
+---
+
+<div class="content-box">
+    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #e9ecef;">
+        <h2 id="search-title" style="margin: 0;">すべての記事一覧</h2>
+        
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <input type="text" id="keyword-input" placeholder="キーワードを入力..." style="padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; width: 200px;">
+            
+            <select id="sort-select" style="padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; background-color: white;">
+                <option value="new">投稿が新しい順</option>
+                <option value="modified">更新順</option>
+                <option value="old">投稿が古い順</option>
+            </select>
+        </div>
+    </div>
+
+    <p id="no-articles-message" style="display: none; color: #666; padding-left: 20px; font-style: italic;">
+        該当する記事はありません。
+    </p>
+
+    <ul id="search-results-list" class="card-grid">
+        {% for post in site.posts %}
+            {% include post-card.html post=post %}
+        {% endfor %}
+    </ul>
+
+    <div id="search-pagination-controls" class="pagination-controls" style="display: none;">
+        <button type="button" class="pagination-btn" data-action="prev">← 前へ</button>
+        <div id="search-pagination-pages" class="pagination-pages"></div>
+        <button type="button" class="pagination-btn" data-action="next">次へ →</button>
+    </div>
+    <p id="search-pagination-info" class="pagination-info" style="display: none;"></p>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetCategory = urlParams.get('cat');
+    const initialQuery = urlParams.get('q');
+    const keywordInput = document.getElementById('keyword-input');
+    const sortSelect = document.getElementById('sort-select');
+    const listContainer = document.getElementById('search-results-list');
+    const items = Array.from(document.querySelectorAll('.search-item'));
+    const paginationControls = document.getElementById('search-pagination-controls');
+    const paginationPages = document.getElementById('search-pagination-pages');
+    const paginationInfo = document.getElementById('search-pagination-info');
+    const prevButton = paginationControls.querySelector('[data-action="prev"]');
+    const nextButton = paginationControls.querySelector('[data-action="next"]');
+    const perPage = 8;
+    let currentPage = 1;
+    let filteredItems = [];
+
+    if (initialQuery) { keywordInput.value = initialQuery; }
+    if (targetCategory && targetCategory !== 'すべて') {
+        document.getElementById('search-title').innerText = `「${targetCategory}」の記事一覧`;
+    } else {
+        document.getElementById('search-title').innerText = "すべての記事一覧";
+    }
+
+    function renderPagination() {
+        const totalPages = Math.max(1, Math.ceil(filteredItems.length / perPage));
+        const startIndex = (currentPage - 1) * perPage + 1;
+        const endIndex = Math.min(currentPage * perPage, filteredItems.length);
+
+        paginationControls.style.display = filteredItems.length > perPage ? 'flex' : 'none';
+        paginationInfo.style.display = filteredItems.length > 0 ? 'block' : 'none';
+        paginationInfo.textContent = filteredItems.length > 0 ? `${startIndex}〜${endIndex}件 / 全${filteredItems.length}件を表示` : '';
+
+        paginationPages.innerHTML = '';
+        if (totalPages <= 1) {
+            prevButton.disabled = true;
+            nextButton.disabled = true;
+            return;
+        }
+
+        const maxVisible = 5;
+        let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+        let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+        if (endPage - startPage + 1 < maxVisible) {
+            startPage = Math.max(1, endPage - maxVisible + 1);
+        }
+
+        for (let page = startPage; page <= endPage; page++) {
+            const pageButton = document.createElement('button');
+            pageButton.type = 'button';
+            pageButton.className = `pagination-page${page === currentPage ? ' active' : ''}`;
+            pageButton.textContent = page;
+            pageButton.addEventListener('click', () => {
+                currentPage = page;
+                renderCurrentPage();
+            });
+            paginationPages.appendChild(pageButton);
+        }
+
+        prevButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage === totalPages;
+    }
+
+    function renderCurrentPage() {
+        listContainer.innerHTML = '';
+        const startIndex = (currentPage - 1) * perPage;
+        const endIndex = startIndex + perPage;
+
+        filteredItems.slice(startIndex, endIndex).forEach(item => {
+            item.style.display = '';
+            listContainer.appendChild(item);
+        });
+
+        renderPagination();
+    }
+
+    function filterAndSortArticles() {
+        const searchKeyword = keywordInput.value.toLowerCase().trim();
+
+        filteredItems = items.filter(item => {
+            const itemCategory = item.getAttribute('data-category');
+            const itemTitle = item.getAttribute('data-title');
+            const matchCategory = (!targetCategory || targetCategory === 'すべて' || itemCategory === targetCategory);
+            const matchKeyword = (!searchKeyword || itemTitle.includes(searchKeyword));
+            return matchCategory && matchKeyword;
+        });
+
+        const sortValue = sortSelect.value;
+        filteredItems.sort((a, b) => {
+            if (sortValue === 'modified') {
+                return parseInt(b.getAttribute('data-modified-timestamp')) - parseInt(a.getAttribute('data-modified-timestamp'));
+            } else if (sortValue === 'new') {
+                return parseInt(b.getAttribute('data-post-timestamp')) - parseInt(a.getAttribute('data-post-timestamp'));
+            } else if (sortValue === 'old') {
+                return parseInt(a.getAttribute('data-post-timestamp')) - parseInt(b.getAttribute('data-post-timestamp'));
+            }
+            return 0;
+        });
+
+        currentPage = 1;
+        document.getElementById('no-articles-message').style.display = (filteredItems.length === 0) ? 'block' : 'none';
+        renderCurrentPage();
+    }
+
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage -= 1;
+            renderCurrentPage();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredItems.length / perPage);
+        if (currentPage < totalPages) {
+            currentPage += 1;
+            renderCurrentPage();
+        }
+    });
+
+    keywordInput.addEventListener('input', filterAndSortArticles);
+    sortSelect.addEventListener('change', filterAndSortArticles);
+    filterAndSortArticles();
+</script>

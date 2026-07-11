@@ -1,0 +1,35 @@
+<li class="game-detailed-card" data-status="{{ include.game.status }}" data-tags="{{ include.game.tags | join: ',' }}" data-date="{{ include.game.date }}">
+    <a href="{{ include.game.url }}" target="_blank" class="game-card-clickable-area">
+        
+        <div class="game-detailed-thumb">
+            <img src="{{ include.game.image }}" alt="{{ include.game.title }}">
+            <span class="status-badge {% if include.game.status == '公開中' %}status-online{% else %}status-dev{% endif %}">
+                {{ include.game.status }}
+            </span>
+        </div>
+        
+        <div class="game-detailed-info">
+            
+            <div class="game-detailed-header">
+                <h2 class="game-detailed-title">{{ include.game.title }}</h2>
+                {% if include.game.date %}
+                <span class="game-detailed-date"><i class="fa-regular fa-calendar"></i> {{ include.game.date }}</span>
+                {% endif %}
+            </div>
+
+            <p class="game-detailed-description">{{ include.game.description }}</p>
+            
+            <div class="game-detailed-footer">
+                <div class="game-tag-pool">
+                    {% for tag in include.game.tags %}
+                    <span class="game-spec-tag">#{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                <div class="game-play-btn">
+                    遊ぶ <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </div>
+        </div>
+
+    </a>
+</li>

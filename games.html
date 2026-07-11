@@ -1,0 +1,196 @@
+---
+layout: games_layout
+title: "GAMES"
+---
+
+<section class="games-filter-section">
+    <div class="search-box-wrapper">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="gameSearch" placeholder="ゲーム名やタグで検索...">
+    </div>
+    
+    <div class="filter-controls-row" style="display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap;">
+        <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="all">すべて</button>
+            <button class="filter-btn" data-filter="公開中">公開中</button>
+            <button class="filter-btn" data-filter="開発中">開発中</button>
+        </div>
+
+        <div class="sort-box-wrapper">
+            <select id="gameSort" style="padding: 8px 12px; border: 1px solid #ced4da; border-radius: 20px; font-size: 13px; font-weight: bold; color: #495057; outline: none; cursor: pointer; background: #ffffff;">
+                <option value="newest">新しい順</option>
+                <option value="oldest">古い順</option>
+            </select>
+        </div>
+    </div>
+</section>
+
+<main class="games-grid-layout">
+    <ul class="games-card-list" id="gamesCardList">
+        {% for game in site.data.games %}
+            {% include game-card-detailed.html game=game %}
+        {% endfor %}
+    </ul>
+
+    <div id="game-pagination-controls" class="pagination-controls" style="display: none; margin-top: 20px;">
+        <button type="button" class="pagination-btn" data-action="prev">← 前へ</button>
+        <div id="game-pagination-pages" class="pagination-pages"></div>
+        <button type="button" class="pagination-btn" data-action="next">次へ →</button>
+    </div>
+    <p id="game-pagination-info" class="pagination-info" style="display: none;"></p>
+</main>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("gameSearch");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const sortSelect = document.getElementById("gameSort");
+    const cardList = document.getElementById("gamesCardList");
+    const cards = Array.from(cardList.querySelectorAll(".game-detailed-card"));
+    const paginationControls = document.getElementById("game-pagination-controls");
+    const paginationPages = document.getElementById("game-pagination-pages");
+    const paginationInfo = document.getElementById("game-pagination-info");
+    const prevButton = paginationControls.querySelector('[data-action="prev"]');
+    const nextButton = paginationControls.querySelector('[data-action="next"]');
+    const perPage = 6;
+
+    let currentFilter = "all";
+    let currentPage = 1;
+    let filteredCards = [];
+
+    function renderPagination() {
+        const totalPages = Math.max(1, Math.ceil(filteredCards.length / perPage));
+        const startIndex = (currentPage - 1) * perPage + 1;
+        const endIndex = Math.min(currentPage * perPage, filteredCards.length);
+
+        paginationControls.style.display = filteredCards.length > perPage ? "flex" : "none";
+        paginationInfo.style.display = filteredCards.length > 0 ? "block" : "none";
+        paginationInfo.textContent = filteredCards.length > 0 ? `${startIndex}〜${endIndex}件 / 全${filteredCards.length}件を表示` : "";
+
+        paginationPages.innerHTML = "";
+        if (totalPages <= 1) {
+            prevButton.disabled = true;
+            nextButton.disabled = true;
+            return;
+        }
+
+        const maxVisible = 5;
+        let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+        let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+        if (endPage - startPage + 1 < maxVisible) {
+            startPage = Math.max(1, endPage - maxVisible + 1);
+        }
+
+        for (let page = startPage; page <= endPage; page++) {
+            const pageButton = document.createElement("button");
+            pageButton.type = "button";
+            pageButton.className = `pagination-page${page === currentPage ? " active" : ""}`;
+            pageButton.textContent = page;
+            pageButton.addEventListener("click", () => {
+                currentPage = page;
+                renderCurrentPage();
+            });
+            paginationPages.appendChild(pageButton);
+        }
+
+        prevButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage === totalPages;
+    }
+
+    function renderCurrentPage() {
+        cardList.innerHTML = "";
+        const startIndex = (currentPage - 1) * perPage;
+        const endIndex = startIndex + perPage;
+
+        filteredCards.slice(startIndex, endIndex).forEach(card => {
+            card.style.display = "";
+            cardList.appendChild(card);
+        });
+
+        renderPagination();
+    }
+
+    // 🔍 検索＆絞り込みのメインコア関数（複数単語のスペース区切りに対応）
+    function filterAndSortGames() {
+        const searchInputText = searchInput.value.toLowerCase().trim();
+        const searchWords = searchInputText ? searchInputText.split(/[\s ]+/) : [];
+
+        filteredCards = cards.filter(card => {
+            const status = card.getAttribute("data-status");
+            const title = card.querySelector(".game-detailed-title").textContent.toLowerCase();
+            const description = card.querySelector(".game-detailed-description").textContent.toLowerCase();
+            const tagsArray = Array.from(card.querySelectorAll(".game-spec-tag"))
+                                    .map(t => t.textContent.toLowerCase().replace("#", ""));
+
+            const matchesStatus = (currentFilter === "all" || status === currentFilter);
+            const matchesSearch = searchWords.every(word => {
+                return title.includes(word) ||
+                        description.includes(word) ||
+                        tagsArray.some(tag => tag.includes(word));
+            });
+
+            return matchesStatus && (searchWords.length === 0 || matchesSearch);
+        });
+
+        const sortValue = sortSelect.value;
+        filteredCards.sort((a, b) => {
+            const dateA = a.getAttribute("data-date") || "0000-00-00";
+            const dateB = b.getAttribute("data-date") || "0000-00-00";
+            return sortValue === "newest" ? dateB.localeCompare(dateA) : dateA.localeCompare(dateB);
+        });
+
+        currentPage = 1;
+        renderCurrentPage();
+    }
+
+    prevButton.addEventListener("click", () => {
+        if (currentPage > 1) {
+            currentPage -= 1;
+            renderCurrentPage();
+        }
+    });
+
+    nextButton.addEventListener("click", () => {
+        const totalPages = Math.ceil(filteredCards.length / perPage);
+        if (currentPage < totalPages) {
+            currentPage += 1;
+            renderCurrentPage();
+        }
+    });
+
+    searchInput.addEventListener("input", filterAndSortGames);
+
+    filterButtons.forEach(btn => {
+        btn.addEventListener("click", function () {
+            filterButtons.forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            currentFilter = this.getAttribute("data-filter");
+            filterAndSortGames();
+        });
+    });
+
+    sortSelect.addEventListener("change", filterAndSortGames);
+
+    document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("game-spec-tag")) {
+            e.preventDefault();
+
+            let newTag = e.target.textContent.replace("#", "").trim();
+            let currentWords = searchInput.value.trim() ? searchInput.value.trim().split(/[\s ]+/) : [];
+
+            if (!currentWords.includes(newTag)) {
+                currentWords.push(newTag);
+            } else {
+                currentWords = currentWords.filter(word => word !== newTag);
+            }
+
+            searchInput.value = currentWords.join(" ");
+            filterAndSortGames();
+            searchInput.scrollIntoView({ behavior: "smooth", block: "center" });
+            searchInput.focus();
+        }
+    });
+
+    filterAndSortGames();
+});
+</script>

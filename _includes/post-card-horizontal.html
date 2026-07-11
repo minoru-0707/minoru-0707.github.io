@@ -1,0 +1,41 @@
+{% if include.post.last_modified_at %}
+    {% assign modified_timestamp = include.post.last_modified_at | date: "%s" %}
+{% else %}
+    {% assign modified_timestamp = include.post.date | date: "%s" %}
+{% endif %}
+
+<li class="card-item-horizontal search-item" 
+    data-category="{{ include.post.category }}" 
+    data-title="{{ include.post.title | downcase }}"
+    data-post-timestamp="{{ include.post.date | date: '%s' }}"
+    data-modified-timestamp="{{ modified_timestamp }}">
+    
+    <a href="{{ include.post.url }}">
+        <div class="card-thumb-horizontal">
+            {% if include.post.image %}
+                <img src="{{ include.post.image }}" alt="{{ include.post.title }}">
+            {% else %}
+                <span class="no-img-text">{{ include.post.category | default: "他" }}</span>
+            {% endif %}
+        </div>
+
+        <div class="card-body-horizontal">
+            <div class="card-meta-top">
+                <span class="category-btn" style="font-size: 9px; padding: 1px 4px; pointer-events: none;">
+                    {{ include.post.category | default: "その他" }}
+                </span>
+            </div>
+            
+            <h3 class="card-title-horizontal">
+                {{ include.post.title }}
+            </h3>
+            
+            <div class="card-dates-horizontal">
+                <span>📝 {{ include.post.date | date: "%Y/%m/%d" }}</span>
+                {% if include.post.last_modified_at %}
+                    <span class="modified-date">🔄 {{ include.post.last_modified_at | date: "%Y/%m/%d" }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </a>
+</li>
