@@ -6,7 +6,7 @@
 
     function updateParallax() {
     const scrollY = window.scrollY || window.pageYOffset || 0;
-    const offset = scrollY * 0.5;
+    const offset = scrollY * 0.1
     wrapper.style.backgroundPosition = `center ${-offset}px`;
     ticking = false;
     }

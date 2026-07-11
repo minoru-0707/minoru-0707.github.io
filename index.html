@@ -5,7 +5,7 @@ title: "Home"
 
 
 <div class="content-box">
-    <h2>🎮 今日のゲーム</h2>
+    <h2>🌱 今日のゲーム</h2>
     {% assign featured_games = site.data.games | where: "status", "公開中" | sort: "date" | reverse %}
     {% assign featured_game = featured_games | first %}
     {% if featured_game %}

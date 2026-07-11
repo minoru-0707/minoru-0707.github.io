@@ -1,0 +1,219 @@
+:root {
+    /* スリガラスの共通テーマ設定 */
+    --glass-bg: rgba(255, 255, 255, 0.4);        /* メインパネルの透明度 */
+    --glass-card-bg: rgba(255, 255, 255, 0.2);   /* カード類の透明度 */
+    --glass-blur: blur(12px);                     /* すりガラスのボケ具合 */
+    --glass-card-blur: blur(6px);                 /* カード類のボケ具合 */
+    --glass-border: 1px solid rgba(255, 255, 255, 0.4); /* 白く光る上品な枠線 */
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);   /* パネルの浮遊感 */
+    --glass-card-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);/* カードの軽い影 */
+    --glass-btn-hover: rgba(75, 123, 236, 0.6); 
+    --glass-btn-hover-border: 1px solid rgba(75, 123, 236, 0.6);
+}
+
+/* -----------------------------------------
+1. 全体のベース設定（フォントや背景色）
+----------------------------------------- */
+body {
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    line-height: 1.7;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+    background-color: #10141d;
+    perspective: 1px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.parallax-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('/assets/images/design/background1.jpg');
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.games-layout-body .parallax-wrapper {
+    /* ここにお好きなゲームページ用の背景画像パスを指定してください */
+    background-image: url('/assets/images/design/background3.jpg'); 
+    
+    /* 必要に応じて、ゲーム画面らしく背景のサイズ感を調整（カバーにするなど） */
+    background-size: cover; 
+}
+
+a {
+    color: #0066cc;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* -----------------------------------------
+2. レイアウト（ヘッダー・フッター・コンテナ）
+----------------------------------------- */
+header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    border-bottom: 1px solid #e9ecef;
+    margin-bottom: 40px;
+
+    /* 💡 半透明の白にし、背後を12px分ぼかす */
+    background-color: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    padding: 40px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    margin-bottom: 40px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+header h1 a {
+    color: inherit;
+}
+header p {
+    margin: 5px 0 0 0;
+    color: #333333;
+    font-size: 14px;
+}
+header form {
+    position: absolute;
+    right: 20px;
+    top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+header form input {
+    padding: 5px 10px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 160px;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #6c757d;
+    font-size: 12px;
+    margin-top: 40px;
+}
+
+.container {
+    max-width: 1080px;
+    margin: 20px auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 20px;
+}
+
+main {
+    flex: 2;
+    min-width: 0;
+}
+
+aside, .content-box, .games-filter-section, .game-scroll-container {
+    background: var(--glass-bg) !important;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border) !important;
+    border-radius: 12px;
+    box-shadow: var(--glass-shadow);
+}
+
+aside {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    height: fit-content;
+}
+aside h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+aside ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0 0 20px 0;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 40px;
+    }
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    header form {
+        position: static !important;
+    }
+}
+
+/* -----------------------------------------
+3. コンテンツ（メインエリアの器）
+----------------------------------------- */
+.content-box {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    margin-bottom: 20px;
+}
+.content-box h2 {
+    margin-top: 0;
+    font-size: 20px;
+}
+.meta {
+    font-size: 12px;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+.post-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+/* -----------------------------------------
+4. グリッド配置とカード共通デザイン
+----------------------------------------- */
+.card-item, 
+.card-item-horizontal, 
+.related-box { /* 👈 関連記事ボックスもここに追加しました */
+    background: var(--glass-card-bg) !important;
+    backdrop-filter: var(--glass-card-blur) !important;
+    -webkit-backdrop-filter: var(--glass-card-blur) !important;
+    border: var(--glass-border) !important;
+    box-shadow: var(--glass-card-shadow) !important;
+}
+
+
+.game-detailed-card {
+    background: var(--glass-bg) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border: var(--glass-border) !important;
+    box-shadow: var(--glass-shadow) !important;
+}

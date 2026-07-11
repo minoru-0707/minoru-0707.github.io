@@ -9,7 +9,7 @@
 - title: "サンプルゲーム2"
   url: "https://itch.io/"
   image: "https://placehold.co/1200x630/868e96/dee2e6?text=Game+2"
-  status: "公開中"
+  status: "開発中"
   date: "2026-04-01"
   description: "広大な惑星を探索するSFアドベンチャー。資源を集め、基地を建設し、未知の生命体との遭遇を楽しめる探索型ゲーム。"
   tags: ["Adventure", "Sci-Fi", "Exploration", "Singleplayer"]
@@ -17,7 +17,7 @@
 - title: "サンプルゲーム3"
   url: "https://itch.io/"
   image: "https://placehold.co/1200x630/868e96/dee2e6?text=Game+3"
-  status: "公開中"
+  status: "開発中"
   date: "2026-04-10"
   description: "ドット絵で描かれたファンタジーRPG。仲間を集め、ターン制バトルを駆使して世界を救う王道ストーリーが展開される。"
   tags: ["RPG", "PixelArt", "Fantasy", "Turn-Based"]
@@ -25,7 +25,7 @@
 - title: "サンプルゲーム4"
   url: "https://itch.io/"
   image: "https://placehold.co/1200x630/868e96/dee2e6?text=Game+4"
-  status: "公開中"
+  status: "開発中"
   date: "2026-05-01"
   description: "物理演算を活かしたパズルゲーム。ギミックを組み合わせてゴールへ導くクリエイティブなステージ構築が特徴。"
   tags: ["Puzzle", "Physics", "Creative", "Brain-Training"]
@@ -33,7 +33,7 @@
 - title: "サンプルゲーム5"
   url: "https://itch.io/"
   image: "https://placehold.co/1200x630/868e96/dee2e6?text=Game+5"
-  status: "公開中"
+  status: "開発中"
   date: "2026-05-20"
   description: "高速レースゲーム。未来都市を舞台に、反重力マシンを操りながらライバルを抜き去るスピード感が魅力。"
   tags: ["Racing", "Sci-Fi", "Speed", "Competitive"]
@@ -41,7 +41,7 @@
 - title: "サンプルゲーム6"
   url: "https://itch.io/"
   image: "https://placehold.co/1200x630/868e96/dee2e6?text=Game+6"
-  status: "公開中"
+  status: "開発中"
   date: "2026-06-05"
   description: "農場経営シミュレーション。作物を育て、家畜を世話し、村人との交流を楽しむほのぼの系スローライフゲーム。"
   tags: ["Simulation", "Farming", "Relaxing", "Casual"]
@@ -49,7 +49,7 @@
 - title: "サンプルゲーム7"
   url: "https://itch.io/"
   image: "https://placehold.co/1200x630/868e96/dee2e6?text=Game+7"
-  status: "公開中"
+  status: "開発中"
   date: "2026-06-18"
   description: "オンライン協力型アクション。仲間と連携しながらダンジョンを攻略し、強力なボスを倒す協力プレイ重視のゲーム。"
   tags: ["Co-op", "Action", "Dungeon", "Multiplayer"]
@@ -57,7 +57,7 @@
 - title: "サンプルゲーム8"
   url: "https://itch.io/"
   image: "https://placehold.co/1200x630/868e96/dee2e6?text=Game+8"
-  status: "公開中"
+  status: "開発中"
   date: "2026-07-11"
   description: "近未来ステルスアクション。ハッキングや隠密行動を駆使してミッションを達成する戦略性の高いゲーム。"
   tags: ["Stealth", "Action", "Cyberpunk", "Strategy"]

@@ -1,0 +1,506 @@
+/* -----------------------------------------
+1. ゲーム専用ページ（games_layout）大枠・フィルタ
+----------------------------------------- */
+.games-main-container {
+    flex-direction: column !important;
+}
+
+.games-filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.search-box-wrapper {
+    position: relative;
+    width: 100%;
+}
+.search-box-wrapper .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a4b0be;
+}
+#gameSearch {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s;
+}
+#gameSearch:focus {
+    border-color: #4b7bec;
+}
+
+.filter-tabs {
+    display: flex;
+    gap: 10px;
+}
+.filter-btn {
+    padding: 8px 16px;
+    border: 1px solid #ced4da;
+    background: #ffffff;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: bold;
+    color: #495057;
+    outline: none;
+}
+.filter-btn.active, .filter-btn:hover {
+    background: #4b7bec;
+    color: #ffffff;
+    border-color: #4b7bec;
+}
+
+/* -----------------------------------------
+2. 強力なゲームカード（詳細版）＆ グリッドレイアウト
+----------------------------------------- */
+.games-card-list {
+    list-style: none !important;
+    padding-left: 0 !important;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+.game-detailed-card {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+.game-detailed-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+}
+
+.game-card-clickable-area {
+    display: flex !important;
+    flex-direction: row;
+    text-decoration: none !important;
+    color: inherit;
+    height: 100%;
+    min-height: 160px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.game-detailed-thumb {
+    flex: 0 0 42%;
+    min-width: 0;
+    position: relative;
+    overflow: hidden;
+    background-color: #e9ecef;
+}
+.game-detailed-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block;
+}
+.game-detailed-card:hover .game-detailed-thumb img {
+    transform: scale(1.05);
+}
+
+.status-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+.status-badge.status-online { background-color: #2ecc71; }
+.status-badge.status-dev { background-color: #e67e22; }
+
+.game-detailed-info {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.game-detailed-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.game-detailed-title {
+    font-size: 16px;
+    margin: 0 0 0px 0;
+    color: #212529;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+.game-detailed-description {
+    font-size: 14px;
+    color: #212529;
+    margin: 8px 0 12px 0;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.game-detailed-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.game-tag-pool {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+.game-spec-tag {
+    font-size: 10px;
+    color: #4b7bec;
+    background-color: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.game-play-btn {
+    font-size: 11px;
+    font-weight: bold;
+    color: #4b7bec;
+    border: 1px solid #4b7bec;
+    padding: 5px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    background-color: #ffffff;
+}
+.game-detailed-card:hover .game-play-btn {
+    background-color: #4b7bec;
+    color: #ffffff;
+}
+
+.home .games-card-list,
+.content-box .games-card-list {
+    grid-template-columns: 1fr;
+}
+
+@media (max-width: 900px) {
+    .games-card-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .games-card-list {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .game-card-clickable-area {
+        flex-direction: column;
+    }
+    .game-detailed-thumb {
+        flex: 0 0 auto;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+    }
+    .game-detailed-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* -----------------------------------------
+3. アプリアイコン型ゲームコンポーネント
+----------------------------------------- */
+.game-icon-grid {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.game-icon-item {
+    flex: 0 0 125px;
+    width: 125px;
+    box-sizing: border-box;
+}
+.game-icon-item a {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+}
+.game-icon-thumb {
+    width: 100%;
+    aspect-ratio: 5 / 3;
+    border-radius: 9px 45px 9px 9px;
+    border: 1px solid #d9e2ec;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, #f8fbff 0%, #eef4f8 100%);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.2s ease;
+}
+.game-icon-thumb::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
+    pointer-events: none;
+    z-index: 2;
+}
+.game-icon-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.game-icon-item:hover .game-icon-thumb {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.16);
+    border-color: #b7c8d8;
+}
+.game-icon-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.05) 0%, rgba(15, 23, 42, 0.82) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 3;
+}
+.game-icon-item:hover .game-icon-overlay {
+    opacity: 1;
+}
+.game-icon-title {
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.2;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+@media (max-width: 480px) {
+    .game-icon-item {
+        flex: 0 0 110px;
+        width: 110px;
+    }
+}
+
+/* -----------------------------------------
+4. ヘッダー下・ゲームアイコン横スクロールエリア
+----------------------------------------- */
+.game-scroll-wrapper {
+    background-color: transparent;
+    border-bottom: none;
+    padding: 20px 0 10px 0;
+    margin: 0 auto 10px auto;
+    max-width: 1120px;
+    width: 100%;
+}
+.game-scroll-container {
+    margin: 20px;
+    padding: 10px 20px 0px 20px;
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-top: none;
+    border-radius: 12px 12px 12px 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+    height: 110px;
+}
+.game-scroll-container::-webkit-scrollbar {
+    height: 8px;
+    display: block;
+}
+.game-scroll-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+.game-scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+.game-scroll-list {
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    width: max-content;
+}
+.game-scroll-list .game-icon-item {
+    flex: 0 0 121px;
+    width: 121px;
+}
+.all-games-btn-inner {
+    width: 100%;
+    aspect-ratio: 5 / 3;
+    border-radius: 16px;
+    border: 2px dashed #9bc2e6;
+    background: linear-gradient(135deg, #f8fbff 0%, #eef4f8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    border-radius: 9px 45px 9px 9px;
+}
+.all-games-link-item a {
+    text-decoration: none;
+}
+.all-games-btn-inner span {
+    color: #4b7bec;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.3;
+}
+.all-games-link-item:hover .all-games-btn-inner {
+    background-color: #4b7bec;
+    border-color: #4b7bec;
+    transform: scale(1.06);
+}
+.all-games-link-item:hover .all-games-btn-inner span {
+    color: #0008ff;
+}
+
+/* -----------------------------------------
+5. 完全位置固定ワープボタン（ヘッダー共通）
+----------------------------------------- */
+.go-to-games {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 7px 16px; /* 💡 押しやすさと見た目の美しさのために少しだけ余白を最適化 */
+    border-radius: 20px; /* 💡 流れる光と相性の良い上品なカプセル形状に */
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none !important;
+    z-index: 10;
+    
+    /* 共通すりガラスベース */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    overflow: hidden; /* 流れる光がボタン外にはみ出さないようにマスク */
+    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ── 🌟 左から右へ走る閃光エフェクト（共通） ── */
+.go-to-games::after {
+    content: "";
+    position: absolute;
+    top: -50%; 
+    left: -60%;
+    width: 30%; 
+    height: 200%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: rotate(30deg);
+    animation: shineWarp 4.5s infinite ease-in-out;
+    pointer-events: none; /* ボタンのクリックを邪魔しない */
+}
+
+/* 閃光アニメーションのキーフレーム */
+@keyframes shineWarp {
+    0% { left: -60%; }
+    15% { left: 140%; }  /* 4.5秒周期のうち、最初の約0.6秒で素早く光が駆け抜けます */
+    100% { left: 140%; } /* 残りの時間は光が消え、静かな状態を維持（ループのくどさを軽減） */
+}
+
+/* ── 🏠 ホーム画面側（ゲーム未滞在）のスタイル ── */
+body:not(.games-layout-body) .go-to-games {
+    color: #4b7bec !important;
+    background-color: rgba(255, 255, 255, 0.4) !important;
+    border: 1px solid rgba(75, 123, 236, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(75, 123, 236, 0.08);
+}
+body:not(.games-layout-body) .go-to-games:hover {
+    transform: translateY(-50%) scale(1.1);
+    background-color: #4b7bec !important;
+    color: #ffffff !important;
+    border-color: #4b7bec !important;
+    box-shadow: 0 6px 20px rgba(75, 123, 236, 0.4);
+}
+
+/* ── 🎮 ゲーム専用画面側のスタイル ── */
+.games-layout-body .go-to-games {
+    color: #495057 !important;
+    background-color: rgba(255, 255, 255, 0.4) !important;
+    border: 1px solid rgba(73, 80, 87, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+.games-layout-body .go-to-games:hover {
+    transform: translateY(-50%) scale(1.1);
+    background-color: #495057 !important;
+    color: #ffffff !important;
+    border-color: #495057 !important;
+    box-shadow: 0 6px 20px rgba(73, 80, 87, 0.3);
+}
+
+/* ── 📱 レスポンシブ表示（スマホ・タブレット） ── */
+@media (max-width: 768px) {
+    .go-to-games {
+        position: static !important;
+        transform: none !important;
+        display: inline-flex !important;
+        margin-bottom: 15px;
+    }
+    /* スマホ時はホバーによる縦移動の拡大率をマイルドに調整 */
+    body:not(.games-layout-body) .go-to-games:hover,
+    .games-layout-body .go-to-games:hover {
+        transform: scale(1.02) !important;
+    }
+}
