@@ -2,7 +2,7 @@
 7.0. ゲーム専用ページ（games_layout）装飾スタイル
 ----------------------------------------- */
 .games-main-container {
-    display: block !important;
+    flex-direction: column !important;
 }
 
 .games-filter-section {

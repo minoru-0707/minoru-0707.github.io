@@ -29,10 +29,27 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jekyll
 
+creator_name: "minoru_0707"
+creator_avatar: "/assets/images/design/avatar.jpg"
+creator_description: "ゲーム制作・技術メモを綴るクリエイター"
+
+sns_urls:
+  youtube: "https://youtube.com/@木のなる実"
+  twitter: "https://twitter.com/minoru_0707"
+  itchio: "https://minoru-0707.itch.io"
+  github: "https://github.com/minoru-0707"
+
 # Build settings
 theme: minima
 plugins:
   - jekyll-feed
+
+
+allowed_categories:
+  - 日記
+  - ゲーム開発
+  - おぼえがき
+  - リリース
 
 # Exclude from processing.
 # The following items will not be processed, by default.

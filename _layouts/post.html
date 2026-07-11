@@ -2,10 +2,15 @@
 layout: default
 ---
 
-{% if site.allowed_categories contains page.category %}
+{% assign categories = site.allowed_categories %}
+{% if categories == nil or categories == empty %}
+    {% assign categories = site.posts | map: 'category' | compact | uniq %}
+{% endif %}
+
+{% if categories contains page.category %}
     {% assign display_category = page.category %}
 {% else %}
-    {% assign display_category = "その他" %}
+    {% assign display_category = page.category | default: "未分類" %}
 {% endif %}
 
 <div class="related-box">
@@ -41,7 +46,7 @@ layout: default
         投稿日: {{ page.date | date: "%Y/%m/%d" }} | 
         
         カテゴリ: 
-        {% if site.allowed_categories contains page.category %}
+        {% if categories contains page.category %}
             <a href="/search.html?cat={{ page.category }}" class="category-btn">{{ display_category }}</a>
         {% else %}
             <a href="/search.html?cat={{ page.category }}" class="category-btn category-warning-btn">{{ display_category }}</a>
@@ -55,7 +60,7 @@ layout: default
         <img src="{{ page.image }}" alt="Thumbnail" class="post-img">
     {% endif %}
 
-    {% unless site.allowed_categories contains page.category %}
+    {% unless categories contains page.category %}
         <p style="font-size: 12px; color: #856404; background-color: #fff3cd; padding: 10px; border-radius: 4px; margin-bottom: 20px;">
             ℹ️ <strong>（未分類の投稿）</strong> この記事のカテゴリ「{{ page.category }}」は登録されていません。
         </p>

@@ -30,7 +30,7 @@
                 {{ include.post.title }}
             </h3>
             
-            <div style="font-size: 10px; color: #777; display: flex; flex-direction: column; gap: 2px; margin-top: 5px; padding-top: 5px; border-top: 1px dashed #f1f3f5;">
+            <div style="font-size: 10px; color: #777; display: flex; flex-wrap: wrap; gap: 0px; margin-top: 5px; padding-top: 5px; border-top: 1px dashed #f1f3f5;">
                 <span>📝 {{ include.post.date | date: "%Y/%m/%d" }}</span>
                 {% if include.post.last_modified_at %}
                     <span style="color: #28a745; font-weight: bold;">🔄 {{ include.post.last_modified_at | date: "%Y/%m/%d" }}</span>

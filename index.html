@@ -1,15 +1,46 @@
 ---
 layout: default
-title: "ホーム"
+title: "Home"
 ---
 
-<main>
-    <h2>最近の投稿</h2>
-    <ul>
-        {% for post in site.posts %}
-        <li>
-            <a href="{{ post.url }}">{{ post.title }}</a>
+
+<div class="content-box">
+    <h2>🎮 今日のゲーム</h2>
+    {% assign featured_games = site.data.games | where: "status", "公開中" | sort: "date" | reverse %}
+    {% assign featured_game = featured_games | first %}
+    {% if featured_game %}
+    <ul class="games-card-list">
+        {% include game-card-detailed.html game=featured_game %}
+    </ul>
+    {% else %}
+    <p>現在公開中のゲームはありません。</p>
+    {% endif %}
+</div>
+
+<div class="content-box">
+    <h2>📢 お知らせ</h2>
+    <ul class="announcement-list">
+        {% for item in site.data.announcements limit: 3 %}
+        <li class="announcement-item">
+            <span class="announcement-date">{{ item.date }}</span>
+            <a href="{{ item.link | default: '/' }}" class="announcement-link">{{ item.title }}</a>
         </li>
         {% endfor %}
     </ul>
-</main>
+</div>
+
+<div class="content-box">
+    <h2>🤨 最近の投稿</h2>
+    
+    <ul class="card-list-horizontal">
+        {% for post in site.posts limit: 2 %}
+            {% include post-card-horizontal.html post=post %}
+        {% endfor %}
+    </ul>
+
+    <p style="margin-top: 20px; text-align: right;">
+        <a href="/search.html?cat=すべて">
+            すべての投稿を見る &rarr;
+        </a>
+    </p>
+</div>

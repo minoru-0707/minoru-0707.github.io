@@ -5,15 +5,25 @@ body {
     font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
     line-height: 1.7;
     color: #333333;
-    background-color: #f8f9fa;
     margin: 0;
     padding: 0;
+
+    background-color: #f8f9fa;
+    perspective: 1px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.parallax-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
     background-image: url('/assets/images/design/background1.jpg');
-    background-size: cover;
+    background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-color: #f8f9fa;
+    overflow: hidden;
 }
 
 a {
@@ -36,6 +46,7 @@ header {
     background-color: #ffffff;
     padding: 40px 20px;
     border-bottom: 1px solid #e9ecef;
+    margin-bottom: 40px;
 }
 header h1 {
     margin: 0;
@@ -328,7 +339,7 @@ body:not(.games-layout-body) .go-to-games:hover {
 }
 
 .card-body {
-    padding: 12px;
+    padding: 6px 12px 12px 12px;
     display: flex;
     flex-direction: column;
     gap: 6px;
