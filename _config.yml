@@ -29,12 +29,12 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jekyll
 
-creator_name: "minoru_0707"
+creator_name: "KuwakaShiomi-くわかしおみ(桒果栞実)"
 creator_avatar: "/assets/images/design/avatar.jpg"
 creator_description: "|ω･`)ﾁﾗｯ ԅ(¯﹃¯ԅ)"
 
 sns_urls:
-  youtube: "https://youtube.com/@木のなる実"
+  youtube: "https://youtube.com/@minoru-0707"
   twitter: "https://twitter.com/minoru_0707"
   itchio: "https://minoru-0707.itch.io"
   github: "https://github.com/minoru-0707"
