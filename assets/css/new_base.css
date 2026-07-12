@@ -5,10 +5,34 @@
     --glass-blur: blur(12px);                     /* すりガラスのボケ具合 */
     --glass-card-blur: blur(6px);                 /* カード類のボケ具合 */
     --glass-border: 1px solid rgba(255, 255, 255, 0.4); /* 白く光る上品な枠線 */
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);   /* パネルの浮遊感 */
-    --glass-card-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);/* カードの軽い影 */
-    --glass-btn-hover: rgba(75, 123, 236, 0.6); 
-    --glass-btn-hover-border: 1px solid rgba(75, 123, 236, 0.6);
+    --glass-shadow: 0 8px 32px 0 rgba(var(--color-shadow-rgb), 0.08);   /* パネルの浮遊感 */
+    --glass-card-shadow: 0 4px 16px rgba(var(--color-shadow-rgb), 0.04);/* カードの軽い影 */
+
+    /* 💡 追加：メインテーマカラー */
+    --theme-color: #4b7bec;
+    --theme-color-rgb: 75, 123, 236;
+
+    --color-white: #ffffff;
+    --color-white-rgb: 255, 255, 255;
+
+    --color-bg-dark: #10141d;       /* 全体背景 */
+    --color-bg-light: #f8f9fa;      /* 薄いグレー背景（SNSアイコン等） */
+
+    --color-text-main: #333333;     /* 基本の文字色（濃いグレー） */
+    --color-text-main-rgb: 51, 51, 51;
+
+    --color-text-muted: #6c757d;    /* 補助テキスト・著作権表示 */
+    --color-text-muted-rgb: 108, 117, 125;
+
+    --color-border: #e9ecef;        /* 基本の枠線グレー */
+    --color-border-rgb: 233, 236, 239;
+
+    --color-shadow-rgb: 0, 0, 0;
+
+    --color-warning: #ff6b6b;          /* 警告・注意の赤色 */
+    --color-caution: #ffa928;          /* 注意・警告のオレンジ色 */
+    --color-attention: #ffeeba;          /* 注意・警告のオレンジ色 */
+    --color-success: #28a745;          /* 成功・完了の緑色 */
 }
 
 /* -----------------------------------------
@@ -17,10 +41,10 @@
 body {
     font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
     line-height: 1.7;
-    color: #333333;
+    color: var(--color-text-main);
     margin: 0;
     padding: 0;
-    background-color: #10141d;
+    background-color: var(--color-bg-dark);
     perspective: 1px;
     overflow-x: hidden;
     overflow-y: auto;
@@ -47,7 +71,7 @@ body {
 }
 
 a {
-    color: #0066cc;
+    color: var(--theme-color);
     text-decoration: none;
 }
 a:hover {
@@ -64,7 +88,7 @@ header {
     align-items: center;
     justify-content: center;
     padding: 40px 20px;
-    border-bottom: 1px solid #e9ecef;
+    border-bottom: 1px solid var(--color-border);
     margin-bottom: 40px;
 
     /* 💡 半透明の白にし、背後を12px分ぼかす */
@@ -72,9 +96,9 @@ header {
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
     padding: 40px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    border-bottom: 1px solid rgba(var(--color-white-rgb), 0.4);
     margin-bottom: 40px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 30px rgba(var(--color-shadow-rgb), 0.05);
 }
 header h1 {
     margin: 0;
@@ -85,7 +109,7 @@ header h1 a {
 }
 header p {
     margin: 5px 0 0 0;
-    color: #333333;
+    color: var(--color-text-main);
     font-size: 14px;
 }
 header form {
@@ -99,15 +123,35 @@ header form {
 header form input {
     padding: 5px 10px;
     font-size: 13px;
-    border: 1px solid #ccc;
     border-radius: 4px;
     width: 160px;
+}
+
+.header-search-input {
+    padding: 6px 12px;
+    font-size: 13px;
+    border: 1px solid var(--color-border); 
+    border-radius: 6px;
+    width: 160px;
+    background-color: rgba(255, 255, 255, 0.5); /* 背景をほんのり透けさせる */
+    box-sizing: border-box;
+    outline: none; /* 👈 これでクリック時の真っ黒な線を消します */
+    transition: all 0.2s ease;
+}
+
+/* クリック（フォーカス）した時 */
+.header-search-input:focus {
+    border-color: var(--theme-color);
+    background-color: var(--color-white); /* 入力中は背景を白にして文字を見やすく */
+    box-shadow: 0 0 0 3px rgba(var(--theme-color-rgb), 0.15); /* ほんのり青く光らせる */
+    width: 180px; /* 💡 お好みで：クリックした時に少し横幅が伸びるようにすると今風になります（不要なら削除してください） */
 }
 
 footer {
     text-align: center;
     padding: 30px;
-    color: #333333;
+    color: var(--color-text-main);
+    border-top: 1px solid var(--color-border);
     font-size: 12px;
     margin-top: 40px;
 }
@@ -136,10 +180,10 @@ aside, .content-box, .games-filter-section, .game-scroll-container {
 
 aside {
     flex: 1;
-    background-color: #ffffff;
+    background-color: var(--color-white);
     padding: 20px;
     border-radius: 8px;
-    border: 1px solid #e9ecef;
+    border: 1px solid var(--color-border);
     height: fit-content;
 }
 aside h3 {
@@ -173,19 +217,23 @@ aside ul {
 3. コンテンツ（メインエリアの器）
 ----------------------------------------- */
 .content-box {
-    background-color: #ffffff;
+    background-color: var(--color-white);
     padding: 20px;
     border-radius: 8px;
-    border: 1px solid #e9ecef;
+    border: 1px solid var(--color-border);
     margin-bottom: 20px;
 }
 .content-box h2 {
     margin-top: 0;
     font-size: 20px;
+
+    white-space: normal;       /* 確実に自動改行を許可する */
+    overflow-wrap: anywhere;   /* 空白のない長い英単語でも、枠の右端で自動折り返し */
+    word-break: break-word;    /* 古いブラウザ向けのフォールバック */
 }
 .meta {
     font-size: 12px;
-    color: #333333;
+    color: var(--color-text-main);
     margin-bottom: 20px;
 }
 .post-img {

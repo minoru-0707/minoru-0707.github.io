@@ -10,10 +10,10 @@
     flex-direction: column;
     gap: 15px;
     margin-bottom: 30px;
-    background: #ffffff;
+    background: var(--color-white);
     padding: 20px;
     border-radius: 8px;
-    border: 1px solid #e9ecef;
+    border: 1px solid var(--color-border);
 }
 
 .search-box-wrapper {
@@ -25,12 +25,12 @@
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    color: #a4b0be;
+    color: var(--color-text-main);
 }
 #gameSearch {
     width: 100%;
     padding: 12px 12px 12px 40px;
-    border: 1px solid #ced4da;
+    border: 1px solid var(--color-border);
     border-radius: 6px;
     font-size: 14px;
     box-sizing: border-box;
@@ -38,7 +38,7 @@
     transition: border-color 0.2s;
 }
 #gameSearch:focus {
-    border-color: #4b7bec;
+    border-color: var(--theme-color); /* 💡 メインテーマカラーに変更 */
 }
 
 .filter-tabs {
@@ -47,20 +47,20 @@
 }
 .filter-btn {
     padding: 8px 16px;
-    border: 1px solid #ced4da;
-    background: #ffffff;
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
     border-radius: 20px;
     font-size: 13px;
     cursor: pointer;
     transition: all 0.2s;
     font-weight: bold;
-    color: #495057;
+    color: var(--color-text-main);
     outline: none;
 }
 .filter-btn.active, .filter-btn:hover {
-    background: #4b7bec;
-    color: #ffffff;
-    border-color: #4b7bec;
+    background: var(--theme-color);
+    color: var(--color-white);
+    border-color: var(--theme-color);
 }
 
 /* -----------------------------------------
@@ -79,20 +79,24 @@
 }
 
 .game-detailed-card {
-    background-color: #ffffff;
-    border: 1px solid #e9ecef;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 6px rgba(var(--color-shadow-rgb),0.02);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer; /* 💡 どこでも押せることを示すため、マウスカーソルを指マークに */
     width: 100%;
     max-width: 100%;
     min-width: 0;
     box-sizing: border-box;
 }
+
 .game-detailed-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+    transform: translateY(-5px) scale(1.01); /* 💡 気持ち少しだけ浮き上がりを強く */
+    box-shadow: 0 12px 24px rgba(var(--theme-color-rgb), 0.25) !important; 
+    background-color: var(--theme-color);
+    color: var(--color-white);
 }
 
 .game-card-clickable-area {
@@ -113,14 +117,14 @@
     min-width: 0;
     position: relative;
     overflow: hidden;
-    background-color: #e9ecef;
 }
 .game-detailed-thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
     display: block;
+    will-change: transform;
 }
 .game-detailed-card:hover .game-detailed-thumb img {
     transform: scale(1.05);
@@ -134,12 +138,12 @@
     font-weight: bold;
     padding: 4px 8px;
     border-radius: 4px;
-    color: #ffffff;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    color: var(--color-white);
+    text-shadow: 1px 1px 2px rgba(var(--color-shadow-rgb),0.3);
 }
-.status-badge.status-online { background-color: #2ecc71; }
-.status-badge.status-dev { background-color: #e67e22; }
-
+.status-badge.status-online { background-color: var(--color-success); }
+.status-badge.status-dev { background-color: var(--color-caution); }
+.status-badge.status-attention { background-color: var(--color-attention); }
 .game-detailed-info {
     flex: 1;
     min-width: 0;
@@ -161,14 +165,14 @@
 .game-detailed-title {
     font-size: 16px;
     margin: 0 0 0px 0;
-    color: #212529;
+    color: var(--color-text-main);
     font-weight: bold;
     overflow-wrap: anywhere;
     word-break: break-word;
 }
 .game-detailed-description {
     font-size: 14px;
-    color: #212529;
+    color: var(--color-text-main);
     margin: 8px 0 12px 0;
     line-height: 1.5;
     display: -webkit-box;
@@ -193,27 +197,35 @@
     gap: 4px;
 }
 .game-spec-tag {
-    font-size: 10px;
-    color: #4b7bec;
-    background-color: #f1f5f9;
-    padding: 2px 6px;
-    border-radius: 4px;
+    font-size: 14px;
+    color: var(--theme-color);
+    
+    background: var(--glass-card-bg);
+    backdrop-filter: var(--glass-card-blur);
+    -webkit-backdrop-filter: var(--glass-card-blur);
+    border: var(--glass-border);
+
+    padding: 2px 10px;           /* 👈 文字が大きくなったので余白を少しゆったりに */
+    border-radius: 6px;          /* 4pxから少し丸みをプラスしてボタン感をUP */
+    display: inline-block;
+    transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+    position: relative;          /* 👈 カード全体のリンクよりも上に乗せるため */
+    z-index: 5;                  /* 👈 これにより、タグ単体でマウスに反応するようになります */
 }
 
-.game-play-btn {
-    font-size: 11px;
-    font-weight: bold;
-    color: #4b7bec;
-    border: 1px solid #4b7bec;
-    padding: 5px 10px;
-    border-radius: 6px;
-    white-space: nowrap;
-    transition: all 0.2s;
-    background-color: #ffffff;
+.game-spec-tag:hover {
+    color: var(--color-text-main) !important;                        
+    background: rgba(var(--theme-color-rgb), 0.6) !important;     /* 青ボタンホバーの透け感を採用[cite: 7] */
+    border-color: rgba(var(--theme-color-rgb), 0.6) !important;   /* 枠線も同時に青く発光させる */
+    
+    transform: translateY(-2px);                        /* ピコッと上に少し浮き上がらせる[cite: 8] */
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(var(--theme-color-rgb), 0.25);   /* ほんのり広がる青い光の影[cite: 8] */
 }
-.game-detailed-card:hover .game-play-btn {
-    background-color: #4b7bec;
-    color: #ffffff;
+
+.game-detailed-card:hover {
+    background-color: var(--theme-color);
+    color: var(--color-text-main)
 }
 
 .home .games-card-list,
@@ -271,11 +283,11 @@
     width: 100%;
     aspect-ratio: 5 / 3;
     border-radius: 9px 45px 9px 9px;
-    border: 1px solid #d9e2ec;
+    border: 1px solid var(--color-border);
     overflow: hidden;
     position: relative;
-    background: linear-gradient(135deg, #f8fbff 0%, #eef4f8 100%);
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    background: var(--glass-bg-light);
+    box-shadow: 0 10px 24px rgba(var(--color-shadow-rgb), 0.15), inset 0 1px 0 rgba(var(--color-white-rgb), 0.4);
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.2s ease;
 }
 .game-icon-thumb::before {
@@ -283,7 +295,6 @@
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
     pointer-events: none;
     z-index: 2;
 }
@@ -295,13 +306,13 @@
 }
 .game-icon-item:hover .game-icon-thumb {
     transform: translateY(-2px) scale(1.04);
-    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.16);
-    border-color: #b7c8d8;
+    box-shadow: 0 16px 30px rgba(var(--color-shadow-rgb), 0.16);
+    border-color: var(--color-border);
 }
 .game-icon-overlay {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(180deg, rgba(15, 23, 42, 0.05) 0%, rgba(15, 23, 42, 0.82) 100%);
+    background: linear-gradient(180deg, rgba(var(--color-shadow-rgb), 0.05) 0%, rgba(var(--color-shadow-rgb), 0.82) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -314,12 +325,12 @@
     opacity: 1;
 }
 .game-icon-title {
-    color: #ffffff;
+    color: var(--color-white);
     font-size: 12px;
     font-weight: bold;
     text-align: center;
     line-height: 1.2;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 1px 4px rgba(var(--color-shadow-rgb), 0.5);
     display: -webkit-box;
     -webkit-line-clamp: 3;
     line-clamp: 3;
@@ -347,11 +358,11 @@
 .game-scroll-container {
     margin: 20px;
     padding: 10px 20px 0px 20px;
-    background-color: #ffffff;
-    border: 1px solid #e9ecef;
+    background-color: var(--color-white);
+    border: var(--glass-border) !important;
     border-top: none;
     border-radius: 12px 12px 12px 12px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+    box-shadow: 0 2px 4px rgba(var(--color-shadow-rgb), 0.01);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     box-sizing: border-box;
@@ -362,7 +373,7 @@
     display: block;
 }
 .game-scroll-container::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: var(--color-bg-light);
     border-radius: 10px;
 }
 .game-scroll-container::-webkit-scrollbar-track {
@@ -385,8 +396,8 @@
     width: 100%;
     aspect-ratio: 5 / 3;
     border-radius: 16px;
-    border: 2px dashed #9bc2e6;
-    background: linear-gradient(135deg, #f8fbff 0%, #eef4f8 100%);
+    border: 2px dashed var(--theme-color);
+    background: var(--glass-card-bg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -398,19 +409,19 @@
     text-decoration: none;
 }
 .all-games-btn-inner span {
-    color: #4b7bec;
+    color: var(--theme-color);
     font-size: 16px;
     font-weight: bold;
     text-align: center;
     line-height: 1.3;
 }
 .all-games-link-item:hover .all-games-btn-inner {
-    background-color: #4b7bec;
-    border-color: #4b7bec;
+    background-color: var(--glass-card-bg);
+    border-color: var(--glass-border);
     transform: scale(1.06);
 }
 .all-games-link-item:hover .all-games-btn-inner span {
-    color: #0008ff;
+    color: var(--theme-color);
 }
 
 /* -----------------------------------------
@@ -447,7 +458,7 @@
     left: -60%;
     width: 30%; 
     height: 200%;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(to right, rgba(var(--color-white-rgb), 0) 0%, rgba(var(--color-white-rgb), 0.4) 50%, rgba(var(--color-white-rgb), 0) 100%);
     transform: rotate(30deg);
     animation: shineWarp 4.5s infinite ease-in-out;
     pointer-events: none; /* ボタンのクリックを邪魔しない */
@@ -462,32 +473,32 @@
 
 /* ── 🏠 ホーム画面側（ゲーム未滞在）のスタイル ── */
 body:not(.games-layout-body) .go-to-games {
-    color: #4b7bec !important;
-    background-color: rgba(255, 255, 255, 0.4) !important;
-    border: 1px solid rgba(75, 123, 236, 0.4) !important;
-    box-shadow: 0 4px 12px rgba(75, 123, 236, 0.08);
+    color: var(--theme-color) !important;
+    background-color: rgba(var(--color-white-rgb), 0.4) !important;
+    border: 1px solid rgba(var(--theme-color-rgb), 0.4) !important;
+    box-shadow: 0 4px 12px rgba(var(--theme-color-rgb), 0.08);
 }
 body:not(.games-layout-body) .go-to-games:hover {
     transform: translateY(-50%) scale(1.1);
-    background-color: #4b7bec !important;
-    color: #ffffff !important;
-    border-color: #4b7bec !important;
-    box-shadow: 0 6px 20px rgba(75, 123, 236, 0.4);
+    background-color: var(--theme-color) !important;
+    color: var(--color-white) !important;
+    border-color: var(--theme-color) !important;
+    box-shadow: 0 6px 20px rgba(var(--theme-color-rgb), 0.4);
 }
 
 /* ── 🎮 ゲーム専用画面側のスタイル ── */
 .games-layout-body .go-to-games {
-    color: #495057 !important;
-    background-color: rgba(255, 255, 255, 0.4) !important;
-    border: 1px solid rgba(73, 80, 87, 0.4) !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    color: var(--color-text-main) !important;
+    background-color: rgba(var(--color-white-rgb), 0.4) !important;
+    border: 1px solid rgba(var(--color-text-main-rgb), 0.4) !important;
+    box-shadow: 0 4px 12px rgba(var(--color-shadow-rgb), 0.04);
 }
 .games-layout-body .go-to-games:hover {
     transform: translateY(-50%) scale(1.1);
-    background-color: #495057 !important;
-    color: #ffffff !important;
-    border-color: #495057 !important;
-    box-shadow: 0 6px 20px rgba(73, 80, 87, 0.3);
+    background-color: var(--color-text-main) !important;
+    color: var(--color-white) !important;
+    border-color: var(--color-text-main) !important;
+    box-shadow: 0 6px 20px rgba(var(--color-text-main-rgb), 0.3);
 }
 
 /* ── 📱 レスポンシブ表示（スマホ・タブレット） ── */

@@ -15,27 +15,31 @@
             {% if include.post.image %}
                 <img src="{{ include.post.image }}" alt="{{ include.post.title }}">
             {% else %}
-                <span class="no-img-text">{{ include.post.category | default: "他" }}</span>
+                <span class="no-img-text">{{ include.post.title }}</span>
             {% endif %}
         </div>
 
         <div class="card-body-horizontal">
+            <!-- 💡 上段：左右に割り振るための共通の親枠 -->
             <div class="card-meta-top">
-                <span class="category-btn" style="font-size: 9px; padding: 1px 4px; pointer-events: none;">
+                <!-- 左寄せになるカテゴリ -->
+                <span class="category-btn" style="font-size: 11px; padding: 1px 4px; pointer-events: none;">
                     {{ include.post.category | default: "その他" }}
                 </span>
+                
+                <!-- 右寄せになる日時 -->
+                <div class="card-dates-horizontal">
+                    <span>📝 {{ include.post.date | date: "%Y/%m/%d" }}</span>
+                    {% if include.post.last_modified_at %}
+                        <span class="modified-date">🔄 {{ include.post.last_modified_at | date: "%Y/%m/%d" }}</span>
+                    {% endif %}
+                </div>
             </div>
             
+            <!-- 💡 下段：タイトル（改行されても全体が崩れないように一番下に広く配置） -->
             <h3 class="card-title-horizontal">
                 {{ include.post.title }}
             </h3>
-            
-            <div class="card-dates-horizontal">
-                <span>📝 {{ include.post.date | date: "%Y/%m/%d" }}</span>
-                {% if include.post.last_modified_at %}
-                    <span class="modified-date">🔄 {{ include.post.last_modified_at | date: "%Y/%m/%d" }}</span>
-                {% endif %}
-            </div>
         </div>
     </a>
 </li>

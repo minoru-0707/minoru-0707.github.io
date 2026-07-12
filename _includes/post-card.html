@@ -15,25 +15,25 @@
             {% if include.post.image %}
                 <img src="{{ include.post.image }}" alt="{{ include.post.title }}">
             {% else %}
-                <span class="no-img-text">{{ include.post.category | default: "他" }}</span>
+                <span class="no-img-text">{{ include.post.title }}</span>
             {% endif %}
         </div>
 
         <div class="card-body">
             <div>
-                <span class="category-btn" style="font-size: 9px; padding: 1px 4px; pointer-events: none;">
+                <span class="category-btn" style="font-size: 11px; padding: 1px 4px; pointer-events: none;">
                     {{ include.post.category | default: "その他" }}
                 </span>
             </div>
             
-            <h3 style="margin: 0; font-size: 14px; line-height: 1.4; font-weight: bold; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal; height: 2.8em;">
+            <h3 class="card-title">
                 {{ include.post.title }}
             </h3>
             
-            <div style="font-size: 10px; color: #777; display: flex; flex-wrap: wrap; gap: 0px; margin-top: 5px; padding-top: 5px; border-top: 1px dashed #f1f3f5;">
-                <span style="margin-right: 10px;">📝 {{ include.post.date | date: "%Y/%m/%d" }}</span>
+            <div class="card-dates">
+                <span>📝 {{ include.post.date | date: "%Y/%m/%d" }}</span>
                 {% if include.post.last_modified_at %}
-                    <span style="color: #28a745;">🔄 {{ include.post.last_modified_at | date: "%Y/%m/%d" }}</span>
+                    <span class="modified-date">🔄 {{ include.post.last_modified_at | date: "%Y/%m/%d" }}</span>
                 {% endif %}
             </div>
         </div>

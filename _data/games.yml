@@ -1,7 +1,7 @@
 - title: "サンプルゲーム1"
   url: "https://itch.io/"
   image: "https://placehold.co/1200x630/868e96/ced4da?text=Game+1"
-  status: "開発中" # 公開中
+  status: "開発中" # 開発中 or 開発中
   date: "2026-03-15"
   description: "爽快感を極限まで追求した2D全方位シューティングゲーム。押し寄せる敵をなぎ倒し、武器を強化しながらステージを攻略する。"
   tags: ["Action", "Shooter", "2D", "Arcade", "Fast-Paced"]

@@ -14,7 +14,7 @@ layout: default
 {% endif %}
 
 <div class="related-box">
-    <h2>📍 関連記事（おすすめ）</h2>
+    <h2>📍 おすすめ ( •﹏• ) </h2>
     <ul class="card-list-horizontal">
         {% assign count = 0 %}
         
@@ -35,7 +35,7 @@ layout: default
         {% endfor %}
 
         {% if count == 0 %}
-            <li class="no-related">関連する記事はまだありません。</li>
+            <li class="no-related">関連する記事はまだありません。(˘･ω･˘ )</li>
         {% endif %}
     </ul>
 </div>
@@ -61,8 +61,8 @@ layout: default
     {% endif %}
 
     {% unless categories contains page.category %}
-        <p style="font-size: 12px; color: #856404; background-color: #fff3cd; padding: 10px; border-radius: 4px; margin-bottom: 20px;">
-            ℹ️ <strong>（未分類の投稿）</strong> この記事のカテゴリ「{{ page.category }}」は登録されていません。
+        <p class="category-warning-alert">
+            ℹ️ <strong>（未分類の投稿）</strong> この記事のカテゴリ「{{ page.category }}」は登録されていないようです。Σ(ﾟдﾟ)
         </p>
     {% endunless %}
 
