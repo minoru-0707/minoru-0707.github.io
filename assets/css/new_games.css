@@ -421,7 +421,7 @@
     top: 50%;
     transform: translateY(-50%);
     left: 20px;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: bold;
     padding: 7px 16px; /* 💡 押しやすさと見た目の美しさのために少しだけ余白を最適化 */
     border-radius: 20px; /* 💡 流れる光と相性の良い上品なカプセル形状に */

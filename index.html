@@ -5,7 +5,7 @@ title: "Home"
 
 
 <div class="content-box">
-    <h2>🌱 今日のゲーム</h2>
+    <h2>🌱 今日のゲーム ദ്ദി*ˊᗜˋ*)</h2>
     {% assign featured_games = site.data.games | where: "status", "公開中" | sort: "date" | reverse %}
     {% assign featured_game = featured_games | first %}
     {% if featured_game %}
@@ -13,12 +13,12 @@ title: "Home"
         {% include game-card-detailed.html game=featured_game %}
     </ul>
     {% else %}
-    <p>現在公開中のゲームはありません。</p>
+    <p>現在公開中のゲームはありません。(ToT)</p>
     {% endif %}
 </div>
 
 <div class="content-box">
-    <h2>📢 お知らせ</h2>
+    <h2>📢 お知らせ (°▽°)!</h2>
     <ul class="announcement-list">
         {% for item in site.data.announcements limit: 3 %}
         <li class="announcement-item">
@@ -30,7 +30,7 @@ title: "Home"
 </div>
 
 <div class="content-box">
-    <h2>🤨 最近の投稿</h2>
+    <h2>🖊️ 最近の投稿 ( ˘•ω•˘ )</h2>
     
     <ul class="card-list-horizontal">
         {% for post in site.posts limit: 2 %}
